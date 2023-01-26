@@ -36,11 +36,7 @@
                 <span class="input-group-text" id="basic-addon2">@redhat.com</span>
             </div>
 
-            <div id="sa_list" style="background-image: url(img/sa_bg.png); background-repeat: repeat-y;"></div>
-
-            <br>            
-
-            <div id="seniorsa_list" style="background-image: url(img/ssa_bg.png); background-repeat: repeat-y;"></div>
+            <div id="dashboard" style="display: none; width: 1200px;"></div>
 
         </div>
     </main>
@@ -57,7 +53,7 @@
 
     $(document).ready(function(){
 
-        checkSession(startIndexPage);
+        formatPage();
 
         $("#button_save_uuid").on("click", function () {
             localStorage.setItem("uuid", $('#input_uuid').val());
