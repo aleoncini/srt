@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" class="h-100">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Salary Range Tool">
+        <meta name="author" content="Andrea Leoncini from Bootstrap examples">
+        <title>Salary Range Tool</title>
+
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sticky-footer-navbar/">        
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/srt.css" rel="stylesheet">
+    </head>
+
+    <body class="d-flex flex-column h-100">
+    
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="http://www.redhat.com"><img src="img/Logo-Red_Hat-A-Reverse-RGB.png" alt="Red Hat home site" width="245" height="58"></a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Begin page content -->
+    <main class="flex-shrink-0">
+        <div class="container">
+            <h1 class="mt-5">Salary Range Tool</h1>
+            <p style="font-size: 0.6em;">version 1.1</p>
+            <p class="lead">a simple web tool to monitor the position of the associates in their salary ranges.</p>
+
+            <p id="p_bar_label" style="font-size: 0.6em;">loading...</p>
+            <div class="progress" style="height: 5px;">
+                <div id="p_bar" class="progress-bar" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+            <br>
+            <p>Please upload the ranges configuration files</p>
+            <div id="uploadform" class="input-group mb-3">
+                <input class="form-control" type="file" id="input_config_file">
+                <button class="btn btn-outline-primary" type="button" id="button_upload_config">Upload</button>
+            </div>
+
+            <div id="uuidform" style="display:none" class="input-group mb-3">
+                <button class="btn btn-outline-primary" type="button" id="button_save_uuid">Save</button>
+                <input id="input_uuid" type="text" class="form-control" placeholder="Please insert your unique uuid" aria-label="Please insert your unique uuid" aria-describedby="basic-addon2">
+                <span class="input-group-text" id="basic-addon2">@redhat.com</span>
+            </div>
+
+            <div id="sa_list" style="background-image: url(img/sa_bg.png); background-repeat: repeat-y;"></div>
+
+            <br>            
+
+            <div id="seniorsa_list" style="background-image: url(img/ssa_bg.png); background-repeat: repeat-y;"></div>
+
+        </div>
+    </main>
+
+    <footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+        <span class="text-muted" style="text-align: right;">developed by SA team Italy</span>
+    </div>
+    </footer>
+
+<script src="js/jquery-3.6.2.js"></script>
+<script src="js/dashboard.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        firstStep();
+
+        $("#button_save_uuid").on("click", function () {
+            localStorage.setItem("uuid", $('#input_uuid').val());
+            $('#uuidform').hide();
+            loadRanges();
+        });
+
+        $("#button_upload_config").on("click", function () {
+            console.log($('#input_config_file').val());
+        });
+
+        $("#inputLocationName").change(function(ev){
+            locationName = $(this).val();
+            var val = ev.target.value
+            distance = $("#tList option[value='" + val + "']").text();
+            $('#inputDistance').val(distance);
+        });
+
+        $(document).on("click", ".delete_trip", function () {
+            deleteTrip(this.dataset.id);
+            $(this).parent().remove();
+        });
+
+    });
+
+</script>
+      
+  </body>
+</html>
