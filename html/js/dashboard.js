@@ -1,14 +1,133 @@
 var STORE_ORIGIN = window.location.origin;
-var top_range = 100000.00;
-var ranges = [];
+var top_range = 170000.00; //max salary in the dashboard
+var tbl_width = 1400 //size in pixel of the dashboard
 
-function firstStep() {
+function loadConfig() {
     $('#p_bar').attr('aria-valuenow', '5').css('width', '5%');
     $('#p_bar_label').html('Loading ranges...');
 
-    loadRanges(secondStep);
+    var theUrl = STORE_ORIGIN + '/config.json';
+    getJson(theUrl, processConfig);
 };
 
+function processConfig(config) {
+    $('#dashboard').hide();
+    $('#dashboard').html('');
+    $.each(config.ranges, function (index, range) {
+        addRangeToDashboard(range);
+    });
+    $.each(config.associates, function (index, associate) {
+        var range = getRange(config.ranges, associate.grade);
+        addAssociateToDashboard(associate, range);
+    });
+    $('#dashboard').show();
+};
+
+// ----------------------------------------------------------------------------------------------------
+function getJson(theUrl, callback) {
+    //var theUrl = STORE_ORIGIN + '/ranges.json';
+    $.ajax({
+        url: theUrl,
+        type: 'GET',
+        dataType: 'json',
+        complete: function(response, status, xhr){
+            var jsondata = jQuery.parseJSON(response.responseText);
+            callback(jsondata);
+        }
+    });
+};
+function getRange(ranges, grade){
+    var r = null;
+    $.each(ranges, function (index, range) {
+        if(range.grade == grade){
+            r = range;
+            return;
+        }
+    });
+    return r;
+}
+// ----------------------------------------------------------------------------------------------------
+function addRangeToDashboard(range) {
+    var scale = tbl_width / top_range;
+    var x1 = range.min * scale;
+    var x2 = range.max * scale;
+    var seg_size = (x2 - x1) / 3;
+    var end_size = tbl_width - x2;
+
+    //var size1 = x1;
+    //var x2 = range.segmentOneTop * scale;
+    //var size2 = x2 - x1;
+    //var x3 = range.mid * scale;
+    //var size3 = x3 - x2;
+    //var x4 = range.segmentTwoTop * scale;
+    //var size4 = x4 - x2;
+    //var x5 = range.max * scale;
+    //var size5 = x5 - x4;
+    //var size6 = tbl_width - x5;
+
+
+    var title_grade = range.title + ' (' + range.grade + ')';
+    var divContent = '<table class="table table-condensed table-hover salary" id="tbl_' + range.grade + '">';
+    divContent += '<thead><tr><th style="width: ' + x1 + 'px; color: red;">' + title_grade + '</th><th style="width:' + seg_size + 'px">1</th><th style="width:' + seg_size + 'px">2</th><th style="width:' + seg_size + 'px">3</th><th style="width:' + end_size + 'px">&nbsp</th></tr></thead>';
+    divContent += '<tbody id="tbl_' + range.grade + '_body"></tbody>';
+
+    divContent += '</table><br>';
+    $('#dashboard').append(divContent);
+};
+function addAssociateToDashboard(associate, range){
+    var scale = tbl_width / top_range;
+    //var hrw = associate.salary * scale;
+    var selector = '#tbl_' + associate.grade;
+    //var range = getRange(associate.grade);
+
+    var rowContent = '<tr>';
+
+    // column 0
+    var rad = '4px';
+    if(associate.salary >= range.min){
+        rad = '4px 0px 0px 4px'
+        rowContent += '<td class="bar"><p>' + associate.name + '</p><hr align="left" class="correct" width=100%" style="border-radius: ' + rad +'"></td>';
+    } else {
+        rowContent += '<td class="bar"><p>' + associate.name + '</p><hr align="left" class="correct" width="' + getHorizontalRuleWidth(0, associate.salary, range) + 'px" style="border-radius: ' + rad +'"></td>';
+    }
+
+    // column 1
+    if(associate.salary >= range.segmentOneTop){
+        rowContent += '<td class="bar"><p>&nbsp</p><hr align="left" class="correct" width=100%" style="border-radius: 0px"></td>';
+    } else if(associate.salary < range.min){
+        rowContent += '<td class="bar">&nbsp</td>';
+    } else {
+        rad = '0px 4px 4px 0px'
+        rowContent += '<td class="bar"><p>&nbsp</p><hr align="left" class="correct" width="' + getHorizontalRuleWidth(1, associate.salary, range) + 'px" style="border-radius: ' + rad +'"></td>';
+    }
+
+    // column 2
+    if(associate.salary >= range.segmentTwoTop){
+        rowContent += '<td class="bar"><p>&nbsp</p><hr align="left" class="correct" width=100%" style="border-radius: 0px"></td>';
+    } else if(associate.salary < range.segmentOneTop){
+        rowContent += '<td class="bar">&nbsp</td>';
+    } else {
+        rad = '0px 4px 4px 0px'
+        rowContent += '<td class="bar"><p>&nbsp</p><hr align="left" class="correct" width="' + getHorizontalRuleWidth(2, associate.salary, range) + 'px" style="border-radius: ' + rad +'"></td>';
+    }
+
+    // column 4
+    if(associate.salary < range.segmentTwoTop){
+        rowContent += '<td class="bar">&nbsp</td>';
+    } else {
+        rad = '0px 4px 4px 0px'
+        rowContent += '<td class="bar"><p>&nbsp</p><hr align="left" class="correct" width="' + getHorizontalRuleWidth(4, associate.salary, range) + 'px" style="border-radius: ' + rad +'"></td>';
+    }
+
+    // column 5
+    rowContent += '<td class="bar">&nbsp</td>';
+
+    rowContent += '</tr>';
+
+    
+    $(selector).find('tbody').append(rowContent);
+}
+// ----------------------------------------------------------------------------------------------------
 function loadRanges(callback) {
     var theUrl = STORE_ORIGIN + '/ranges.json';
     $.ajax({
@@ -65,31 +184,6 @@ function processRanges(newranges) {
     });
 };
 
-function addRangeToDashboard(range) {
-    // set max salary of the dashboard
-    if(range.max > top_range){
-        top_range = range.max + 5000;
-    }
-    var scale = 1200 / top_range;
-    var x1 = range.min * scale;
-    var size1 = x1;
-    var x2 = range.segmentOneTop * scale;
-    var size2 = x2 - x1;
-    var x3 = range.mid * scale;
-    var size3 = x3 - x2;
-    var x4 = range.segmentTwoTop * scale;
-    var size4 = x4 - x3;
-    var x5 = range.max * scale;
-    var size5 = x5 - x4;
-    var title_grade = range.title + ' (' + range.grade + ')';
-    var divContent = '<table class="table table-condensed table-hover salary" id="tbl_' + range.grade + '">';
-    divContent += '<thead><tr><th style="width: ' + size1 + 'px; color: red;">' + title_grade + '</th><th style="width:' + size2 + 'px">segment 1</th><th style="width:' + size3 + 'px">&nbsp</th><th style="width:' + size4 + 'px">&nbsp</th><th style="width:' + size5 + 'px">segment 3</th><th>&nbsp</th></tr></thead>';
-    divContent += '<tbody id="tbl_' + range.grade + '_body"></tbody>';
-
-    divContent += '</table>';
-    $('#dashboard').append(divContent);
-};
-
 function checkSession(callback) {
     var uuid = localStorage.getItem("uuid");
     if (uuid == null){
@@ -105,88 +199,12 @@ function formatAssociates(associates) {
     });
 };
 
-function addAssociateToDashboard(associate){
-    var scale = 1200 / top_range;
-    var hrw = associate.salary * scale;
-    var selector = '#tbl_' + associate.grade;
-    var range = getRange(associate.grade);
-
-    var rowContent = '<tr>';
-    rowContent += '<td>' + associate.name + '</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td><td>&nbsp</td>';
-    rowContent += '</tr>';
-    rowContent += '<tr>';
-
-    // column 0
-    var rad = '4px';
-    if(associate.salary >= range.min){
-        rad = '4px 0px 0px 4px'
-        rowContent += '<td class="bar"><hr align="left" class="correct" width=100%" style="border-radius: ' + rad +'"></td>';
-    } else {
-        rowContent += '<td class="bar"><hr align="left" class="correct" width="' + getHorizontalRuleWidth(0, associate.salary, range) + 'px" style="border-radius: ' + rad +'"></td>';
-    }
-
-    // column 1
-    if(associate.salary >= range.segmentOneTop){
-        rowContent += '<td class="bar"><hr align="left" class="correct" width=100%" style="border-radius: 0px"></td>';
-    } else if(associate.salary < range.min){
-        rowContent += '<td class="bar">&nbsp</td>';
-    } else {
-        rad = '0px 4px 4px 0px'
-        rowContent += '<td class="bar"><hr align="left" class="correct" width="' + getHorizontalRuleWidth(1, associate.salary, range) + 'px" style="border-radius: ' + rad +'"></td>';
-    }
-
-    // column 2
-    if(associate.salary >= range.mid){
-        rowContent += '<td class="bar"><hr align="left" class="correct" width=100%" style="border-radius: 0px"></td>';
-    } else if(associate.salary < range.segmentOneTop){
-        rowContent += '<td class="bar">&nbsp</td>';
-    } else {
-        rad = '0px 4px 4px 0px'
-        rowContent += '<td class="bar"><hr align="left" class="correct" width="' + getHorizontalRuleWidth(2, associate.salary, range) + 'px" style="border-radius: ' + rad +'"></td>';
-    }
-
-    // column 3
-    if(associate.salary >= range.segmentTwoTop){
-        rowContent += '<td class="bar"><hr align="left" class="correct" width=100%" style="border-radius: 0px"></td>';
-    } else if(associate.salary < range.mid){
-        rowContent += '<td class="bar">&nbsp</td>';
-    } else {
-        rad = '0px 4px 4px 0px'
-        rowContent += '<td class="bar"><hr align="left" class="correct" width="' + getHorizontalRuleWidth(3, associate.salary, range) + 'px" style="border-radius: ' + rad +'"></td>';
-    }
-
-    // column 4
-    if(associate.salary < range.segmentTwoTop){
-        rowContent += '<td class="bar">&nbsp</td>';
-    } else {
-        rad = '0px 4px 4px 0px'
-        rowContent += '<td class="bar"><hr align="left" class="correct" width="' + getHorizontalRuleWidth(4, associate.salary, range) + 'px" style="border-radius: ' + rad +'"></td>';
-    }
-
-    // column 5
-    rowContent += '<td class="bar">&nbsp</td>';
-
-    rowContent += '</tr>';
-
-    
-    $(selector).find('tbody').append(rowContent);
-}
 
 // -------------------------------------------------------------------------------------------
 
-function getRange(grade){
-    var r = null;
-    $.each(ranges, function (index, range) {
-        if(range.grade == grade){
-            r = range;
-            return;
-        }
-    });
-    return r;
-}
 
 function getHorizontalRuleWidth(column, salary, range){
-    var scale = 1200 / top_range;
+    var scale = tbl_width / top_range;
     var hrv = 0;
 
     switch(column){

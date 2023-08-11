@@ -31,29 +31,9 @@
             <p style="font-size: 0.6em;">version 1.1</p>
             <p class="lead">a simple web tool to monitor the position of the associates in their salary ranges.</p>
 
-            <p id="p_bar_label" style="font-size: 0.6em;">loading...</p>
-            <div class="progress" style="height: 5px;">
-                <div id="p_bar" class="progress-bar" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-
             <br>
-            <p>Please upload the ranges configuration files</p>
-            <div id="uploadform" class="input-group mb-3">
-                <input class="form-control" type="file" id="input_config_file">
-                <button class="btn btn-outline-primary" type="button" id="button_upload_config">Upload</button>
-            </div>
 
-            <div id="uuidform" style="display:none" class="input-group mb-3">
-                <button class="btn btn-outline-primary" type="button" id="button_save_uuid">Save</button>
-                <input id="input_uuid" type="text" class="form-control" placeholder="Please insert your unique uuid" aria-label="Please insert your unique uuid" aria-describedby="basic-addon2">
-                <span class="input-group-text" id="basic-addon2">@redhat.com</span>
-            </div>
-
-            <div id="sa_list" style="background-image: url(img/sa_bg.png); background-repeat: repeat-y;"></div>
-
-            <br>            
-
-            <div id="seniorsa_list" style="background-image: url(img/ssa_bg.png); background-repeat: repeat-y;"></div>
+            <div id="dashboard" style="display: none; width: 1400px;"></div>
 
         </div>
     </main>
@@ -70,7 +50,7 @@
 
     $(document).ready(function(){
 
-        firstStep();
+        loadConfig();
 
         $("#button_save_uuid").on("click", function () {
             localStorage.setItem("uuid", $('#input_uuid').val());

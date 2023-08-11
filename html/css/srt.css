@@ -63,7 +63,7 @@ hr.correct {
 
 table.salary {
 	margin: auto;
-	width: 1200px;
+	width: 1400px;
 	border-collapse: collapse;
 	border: 1px solid #fff; /*for older IE*/
 	border-style: hidden;
@@ -95,19 +95,19 @@ table.salary th{
 table.salary td {
 	border-width: 1px;
 	border-style: solid;
-	border-color: #f5f2ef #ccc;
+	border-color: #fff #ccc;
 	font-size: 0.7em;
 	font-weight: bold;
 	text-align: left;
 }
 
 table.salary td.bar {
-    padding-top: 4px;
+    padding-top: 2px;
     padding-right: 0px;
-    padding-bottom: 4px;
+    padding-bottom: 2px;
     padding-left: 0px;
     font-size: 0.7em;
-	font-weight: normal;
+	font-weight: bold;
 	text-align: left;
 	border-width: 1px;
 	border-style: solid;
