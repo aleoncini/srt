@@ -1,138 +1,38 @@
 {
   "ranges":[{
-      "grade":"R18",
-      "title":"Junior Solution Architect",
-      "min":37340.00,
-      "segmentOneTop":44803.00,
-      "mid":48535.00,
-      "segmentTwoTop":52266.00,
-      "max":59730.00
-    },
-    {
       "grade":"S16",
       "title":"Solution Architect",
-      "min":70405.00,
-      "segmentOneTop":84478.00,
-      "mid":91515.00,
-      "segmentTwoTop":98551.00,
-      "max":112625.00
+      "min":70000.00,
+      "segmentOneTop":85000.00,
+      "mid":90000.00,
+      "segmentTwoTop":98000.00,
+      "max":110000.00
     },
     {
       "grade":"S17A",
       "title":"Senior Solution Architect",
-      "min":80905.00,
-      "segmentOneTop":97086.00,
-      "mid":105177.00,
-      "segmentTwoTop":113268.00,
-      "max":129450.00
-    },
-    {
-      "grade":"S18",
-      "title":"Manager",
-      "min":95270.00,
-      "segmentOneTop":115916.00,
-      "mid":126240.00,
-      "segmentTwoTop":136562.00,
-      "max":157210.00
+      "min":80000.00,
+      "segmentOneTop":97000.00,
+      "mid":105000.00,
+      "segmentTwoTop":115000.00,
+      "max":130000.00
     }
-
   ],
   "associates":[{
       "grade":"S17A",
-      "id":"126874",
-      "name":"Giovan Battista Salinetti",
-      "comparatio":47,
-      "salary":99556.00,
+      "id":"123456",
+      "name":"Paolino Paperino",
+      "comparatio":100,
+      "salary":99999.00,
       "segment":1
     },
     {
       "grade":"S16",
-      "id":"115833",
-      "name":"Francesco Fabi",
-      "comparatio":44,
+      "id":"456789",
+      "name":"Zio Paperone",
+      "comparatio":100,
       "salary":84000.00,
-      "segment":1
-    },
-    {
-      "grade":"S17A",
-      "id":"16000947",
-      "name":"Marco Fagotto",
-      "comparatio":85,
-      "salary":89040.00,
-      "segment":1
-    },
-    {
-      "grade":"S16",
-      "id":"abcdef",
-      "name":"Pietro Bertera",
-      "comparatio":33,
-      "salary":88000.00,
-      "segment":1
-    },
-    {
-      "grade":"S16",
-      "id":"100893",
-      "name":"Marco Caimi",
-      "comparatio":5,
-      "salary":91500.00,
-      "segment":1
-    },
-    {
-      "grade":"S17A",
-      "id":"117015",
-      "name":"Nicolo Amato",
-      "comparatio":93,
-      "salary":97384.33,
       "segment":2
-    },
-    {
-      "grade":"S16",
-      "id":"117018",
-      "name":"Pierluigi Rossi",
-      "comparatio":90,
-      "salary":82000.00,
-      "segment":2
-    },
-    {
-      "grade":"S17A",
-      "id":"38556",
-      "name":"Pier Quidacciolu",
-      "comparatio":93,
-      "salary":95570.83,
-      "segment":2
-    },
-    {
-      "grade":"S17A",
-      "id":"16014519",
-      "name":"Onofrio Lazzizzera",
-      "comparatio":86,
-      "salary":90000.00,
-      "segment":1
-    },
-    {
-      "grade":"S16",
-      "id":"82234",
-      "name":"Daniele Di Bartolomei",
-      "comparatio":93,
-      "salary":85000.00,
-      "segment":1
-    },
-    {
-      "grade":"R18",
-      "id":"16004314",
-      "name":"Eleonora Peruch",
-      "comparatio":78,
-      "salary":38000.00,
-      "segment":1
-    },
-    {
-      "grade":"S18",
-      "id":"9053",
-      "name":"Andrea Leoncini",
-      "comparatio":78,
-      "salary":102525.50,
-      "segment":2
-    }    
-
+    }   
   ]
 }
