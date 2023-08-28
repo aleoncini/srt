@@ -1,61 +1,30 @@
 # srt Project
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+**SALARY RANGE TOOL**
+With the new directives for salary transparency this tool can give a visual dashboard of your team.
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+## Running the application
 
-## Running the application in dev mode
+To run the application (a simple, single web page) you just need to use a local web server to serve the pages, it can be done with two simle steps:
 
-You can run your application in dev mode that enables live coding using:
-```shell script
-./mvnw compile quarkus:dev
+### Step 1 - put files in your web server root directory
+
+This can be done cloning the GIT repo directly in your root directory, for example:
+
+```in a shell window
+cd /usr/share/nginx/html
+git clone https://github.com/aleoncini/srt.git
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+### Step 2 - create a configuration file
 
-## Packaging and running the application
+The app needs a file named "config.json" in the directory with index.html, you can use the template file named template.json and editing examples with real values:
 
-The application can be packaged using:
-```shell script
-./mvnw package
-```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
+```in the previous shell window
+cp template.json config.json
+vi config.json
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+Now you can use the application opening the page at the URL: ([SRT Home](http://localhost/srt))
 
-## Creating a native executable
-
-You can create a native executable using: 
-```shell script
-./mvnw package -Pnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Pnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/srt-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
-
-## Related Guides
-
-- MongoDB with Panache ([guide](https://quarkus.io/guides/mongodb-panache)): Simplify your persistence code for MongoDB via the active record or the repository pattern
-- RESTEasy Reactive ([guide](https://quarkus.io/guides/resteasy-reactive)): A JAX-RS implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-
-## Provided Code
-
-### RESTEasy Reactive
-
-Easily start your Reactive RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+NOTE: in case your web server is bind on a different port than 80 specify the url accordingly (http://[host]:[port]/srt)
