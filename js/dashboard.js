@@ -1,4 +1,4 @@
-var STORE_ORIGIN = window.location.origin;
+var STORE_ORIGIN = window.location.origin + "/srt/";
 var top_range = 170000.00; //max salary in the dashboard
 var tbl_width = 1400 //size in pixel of the dashboard
 
