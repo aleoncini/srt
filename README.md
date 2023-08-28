@@ -18,10 +18,10 @@ git clone https://github.com/aleoncini/srt.git
 
 ### Step 2 - create a configuration file
 
-The app needs a file named "config.json" in the directory with index.html, you can use the template file named template.json and editing examples with real values:
+The app needs a file named "config.json" in the directory with index.html, you can use the template file named example.config.json and editing examples with real values:
 
 ```in the previous shell window
-cp template.json config.json
+cp (or mv) example.config.json config.json
 vi config.json
 ```
 
