@@ -3,19 +3,19 @@
       "grade":"S16",
       "title":"Solution Architect",
       "min":70000.00,
-      "segmentOneTop":85000.00,
-      "mid":90000.00,
-      "segmentTwoTop":98000.00,
-      "max":110000.00
+      "segmentOneTop":75000.00,
+      "mid":80000.00,
+      "segmentTwoTop":85000.00,
+      "max":90000.00
     },
     {
       "grade":"S17A",
       "title":"Senior Solution Architect",
       "min":80000.00,
-      "segmentOneTop":97000.00,
-      "mid":105000.00,
-      "segmentTwoTop":115000.00,
-      "max":130000.00
+      "segmentOneTop":85000.00,
+      "mid":90000.00,
+      "segmentTwoTop":95000.00,
+      "max":100000.00
     }
   ],
   "associates":[{
@@ -31,7 +31,7 @@
       "id":"456789",
       "name":"Zio Paperone",
       "comparatio":100,
-      "salary":84000.00,
+      "salary":88888.00,
       "segment":2
     }   
   ]
